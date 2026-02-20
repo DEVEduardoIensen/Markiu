@@ -1,32 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Inscrição - Evento Musical</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <iframe width="699" height="315" src="https://www.youtube.com/embed/J-h_RNvJF1A?si=zls0668PxFp0DNzB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
-    <br><br>
-    <h1>Cadastro de USUARÌO</h1>
+<header>
+    <h1>Festival Music Live</h1>
+    <p>Garanta sua vaga no maior evento musical do ano</p>
+</header>
 
-    <form id="oi">
+<section>
+    <h1>Apresentação do Evento</h1>
 
-        <label for="nome">nome</label>
-        <input type="text" name="nome" id="nome"
-        placeholder="Insira seu nome"required>
-        <br><br>
-         <label for="email">email</label>
-        <input type="email" name="email" id="email"
-        placeholder="Insira seu email"required>
-        <br><br>
-         <label for="idade">numero</label>
-        <input type="number" name="numero" id="numero"
-        placeholder="Insira seu numero"required>
-        <button type="submit">enviar</button>
+    <!-- IMAGEM -->
+    <img src="ChatGPT Image 20_02_2026, 20_43_27.png" alt="Banner do Evento" class="banner">
+
+    <!-- VÍDEO RESPONSIVO -->
+    <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/yTePMSWwZ1E"
+        title="YouTube video player"
+        allowfullscreen></iframe>
+    </div>
+
+</section>
+
+<section>
+    <h2>Horários dos Shows</h2>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Horário</th>
+                <th>Artista</th>
+                <th>Palco</th>
+            </tr>
+            <tr>
+                <td>18:00</td>
+                <td>Banda A</td>
+                <td>Principal</td>
+            </tr>
+            <tr>
+                <td>19:30</td>
+                <td>Cantor B</td>
+                <td>Secundário</td>
+            </tr>
+            <tr>
+                <td>21:00</td>
+                <td>DJ C</td>
+                <td>Eletrônico</td>
+            </tr>
+            <tr>
+                <td>22:30</td>
+                <td>Banda D</td>
+                <td>Principal</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<section>
+    <h2>Formulário de Inscrição</h2>
+
+    <form>
+
+        <label>Nome:</label>
+        <input type="text" name="nome" required>
+
+        <label>E-mail:</label>
+        <input type="email" name="email" required>
+
+        <label>Telefone:</label>
+        <input type="tel" name="telefone" required>
+
+        <div class="radio-group">
+            <p>Tipo de ingresso:</p>
+
+            <label><input type="radio" name="ingresso" value="pista" required> Pista</label>
+            <label><input type="radio" name="ingresso" value="vip"> VIP</label>
+            <label><input type="radio" name="ingresso" value="camarote"> Camarote</label>
+        </div>
+
+        <div class="checkbox-group">
+            <label>
+                <input type="checkbox" name="updates">
+                Receber atualizações por e-mail
+            </label>
+        </div>
+
+        <button type="submit">Enviar Inscrição</button>
+
     </form>
-    <p>teste</p>
-    <script src="/script.js"></script>
+</section>
+
 </body>
 </html>
