@@ -1,11 +1,5 @@
 <?php
 
-// Repositório: https://github.com/DEVEduardoIensen/Markiu
-
-// -----------------------------------------------
-// IF e ELSE
-
-// 1.
 $idade = 20;
 if ($idade >= 18) {
     echo "Você é maior de idade<br>";
@@ -15,7 +9,6 @@ if ($idade >= 18) {
 
 echo "<br>";
 
-// 2.
 $dinheiro = 50000;
 if ($dinheiro < 2000) {
     echo "Pobre<br>";
@@ -31,7 +24,6 @@ if ($dinheiro < 2000) {
 
 echo "<br>";
 
-// 3.
 $numero1 = 10;
 $numero2 = 5;
 $operacao = "+";
@@ -46,12 +38,8 @@ if ($operacao == "+") {
     echo $numero1 / $numero2;
 }
 
-echo "<br><br>";
+echo "<br><br><hr><br>";
 
-// -----------------------------------------------
-// LOOPS
-
-// 4.
 for ($i = 1; $i <= 100; $i++) {
     if ($i % 2 == 0) {
         echo $i . " ";
@@ -60,7 +48,6 @@ for ($i = 1; $i <= 100; $i++) {
 
 echo "<br><br>";
 
-// 5.
 $numeros = [4, 7, 12879.5];
 foreach ($numeros as $num) {
     echo "Tabuada do $num:<br>";
@@ -70,10 +57,8 @@ foreach ($numeros as $num) {
     echo "<br>";
 }
 
-// -----------------------------------------------
-// FUNÇÕES
+echo "<hr><br>";
 
-// 6.
 function saudar($nome) {
     echo "Olá " . $nome . "!<br>";
 }
@@ -81,7 +66,6 @@ saudar("Carlos Johnson");
 
 echo "<br>";
 
-// 7.
 function operacoes($n1, $n2) {
     $soma = $n1 + $n2;
     $subtracao = $n1 - $n2;
@@ -91,12 +75,8 @@ function operacoes($n1, $n2) {
 }
 operacoes(10, 5);
 
-echo "<br>";
+echo "<br><hr><br>";
 
-// -----------------------------------------------
-// ARRAYS
-
-// 8.
 $memes = ["Doge", "Gigachad", "Gato da Mesa", "Calabreso", "Flork"];
 foreach ($memes as $meme) {
     echo $meme . "<br>";
@@ -104,7 +84,6 @@ foreach ($memes as $meme) {
 
 echo "<br>";
 
-// 9.
 $papagaios = ["Verdadeiro", "Mangue", "Chauá"];
 $papagaios[] = "Imperial";
 foreach ($papagaios as $papagaio) {
@@ -113,7 +92,6 @@ foreach ($papagaios as $papagaio) {
 
 echo "<br>";
 
-// 10.
 $pessoa = [
     "Nome" => "Carlos",
     "Idade" => 25,
@@ -126,13 +104,8 @@ foreach ($pessoa as $chave => $valor) {
 
 echo "<br><hr><br>";
 
-// -----------------------------------------------
-// FORMULÁRIOS
-
 ?>
 
-<!-- 11. Formulário IMC -->
-<h3>11. Calculadora de IMC</h3>
 <form method="POST">
     Peso: <input type="number" step="any" name="peso"><br><br>
     Altura: <input type="number" step="any" name="altura"><br><br>
@@ -150,8 +123,6 @@ if (isset($_POST['btn_imc'])) {
 
 <br><hr><br>
 
-<!-- 12. Calculadora HTML -->
-<h3>12. Calculadora</h3>
 <form method="POST">
     Número 1: <input type="number" name="num1"><br><br>
     Número 2: <input type="number" name="num2"><br><br>
@@ -181,8 +152,6 @@ if (isset($_POST['op'])) {
 
 <br><hr><br>
 
-<!-- 13. Formulário Cadastro -->
-<h3>13. Formulário de Cadastro</h3>
 <form method="POST">
     Nome: <input type="text" name="nome"><br><br>
     Email: <input type="email" name="email"><br><br>
