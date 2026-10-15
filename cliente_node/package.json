@@ -1,0 +1,12 @@
+{
+  "name": "cliente-node-faculdade",
+  "version": "1.0.0",
+  "description": "Outro projeto local em outro framework (Express / Node.js) consumindo a API PHP de Produtos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
