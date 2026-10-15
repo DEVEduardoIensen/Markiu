@@ -3,24 +3,17 @@
 // TAREFA DE FACULDADE - ATALHOS RÁPIDOS
 // ==========================================
 ?>
-<div style="background: #1e293b; color: white; padding: 18px; border-radius: 8px; margin-bottom: 25px; font-family: Arial, sans-serif;">
-    <h2 style="margin: 0 0 12px 0; font-size: 18px; color: #38bdf8;">📋 Tarefas de Faculdade - Markiu</h2>
-    
-    <div style="margin-bottom: 10px;">
-        <strong style="color: #94a3b8; font-size: 12px; text-transform: uppercase;">Tarefa 1 (Service & Testes):</strong><br>
-        <div style="display: flex; gap: 8px; margin-top: 5px;">
-            <a href="tarefa1/testes.php" style="background: #8b5cf6; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 13px;">🧪 Executar Testes Unitários</a>
-        </div>
-    </div>
-
-    <div>
-        <strong style="color: #94a3b8; font-size: 12px; text-transform: uppercase;">Tarefa 2 (API RESTful, Consumo & Desafio):</strong><br>
-        <div style="display: flex; gap: 8px; margin-top: 5px; flex-wrap: wrap;">
-            <a href="tarefa2/cliente.html" style="background: #2563eb; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 13px;">💻 Abrir Cliente Web</a>
-            <a href="tarefa2/api.php" style="background: #10b981; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 13px;">⚡ API RESTful (JSON)</a>
-            <a href="tarefa2/consumo.php" style="background: #f59e0b; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-weight: bold; font-size: 13px;">🌐 Consumo de API Externa</a>
-        </div>
-    </div>
+<div style="font-family: Arial, sans-serif; margin-bottom: 20px;">
+    <h2>Tarefas de Faculdade - PHP</h2>
+    <p>
+        <strong>Tarefa 1:</strong> <a href="tarefa1/testes.php">[ Executar Testes Unitários do Service ]</a><br><br>
+        <strong>Tarefa 2:</strong> 
+        <a href="tarefa2/consumo.php">[ Consumo da API Externa de Cotações ]</a> | 
+        <a href="tarefa2/testar_api.php">[ Testar a API RESTful na tela (SEM Postman) ]</a> | 
+        <a href="tarefa2/api.php" target="_blank">[ Ver JSON Puro da API ]</a>
+    </p>
+    <hr>
+    <h3>Exercícios de PHP:</h3>
 </div>
 <?php
 

@@ -36,6 +36,10 @@ function verificar($titulo, $condicao, $msgSucesso, $msgErro) {
     }
 }
 
+if (php_sapi_name() !== 'cli') {
+    echo "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Testes Tarefa 1</title></head><body style='font-family: monospace; padding: 20px;'><pre>";
+}
+
 echo "========================================================\n";
 echo "           TAREFA 1 - EXECUTANDO TESTES DO SERVICE      \n";
 echo "========================================================\n\n";
@@ -143,3 +147,7 @@ if (file_exists($arquivoTeste)) {
 echo "--------------------------------------------------------\n";
 echo "RESULTADO: $passou de $total testes passaram!\n";
 echo "========================================================\n";
+
+if (php_sapi_name() !== 'cli') {
+    echo "</pre><p><a href='../index.php' style='font-family: Arial, sans-serif;'>← Voltar para o início</a></p></body></html>";
+}

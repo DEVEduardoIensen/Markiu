@@ -1,10 +1,9 @@
 <?php
 
 /**
- * TAREFA 2 - CRIAÇÃO DE API SIMPLES
- * Implementa:
- * A. Rotas RESTful (GET, POST, PUT, DELETE)
- * B. Resource (ProdutoResource)
+ * TAREFA 2 - CRIAÇÃO DE API RESTFUL
+ * Rotas: GET, POST, PUT, DELETE
+ * Resource: ProdutoResource
  */
 
 require_once __DIR__ . '/service.php';
@@ -13,7 +12,6 @@ require_once __DIR__ . '/resource.php';
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json; charset=utf-8");
 
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
@@ -21,10 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 }
 
 $service = new ProdutoService(__DIR__ . '/produtos.json');
-$metodo = $_SERVER['REQUEST_METHOD'];
 
-// Captura ID via query (?id=1) ou URL (/1)
-$id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+// Suporte a RESTful direto e também via formulário HTML com _method
+$metodo = $_SERVER['REQUEST_METHOD'];
+if ($metodo === 'POST' && isset($_POST['_method'])) {
+    $metodo = strtoupper($_POST['_method']);
+} elseif (isset($_GET['_method'])) {
+    $metodo = strtoupper($_GET['_method']);
+}
+
+$id = isset($_GET['id']) ? (int)$_GET['id'] : (isset($_POST['id']) ? (int)$_POST['id'] : null);
 if (!$id && isset($_SERVER['PATH_INFO'])) {
     $partes = explode('/', trim($_SERVER['PATH_INFO'], '/'));
     if (!empty($partes[0]) && is_numeric($partes[0])) {
@@ -32,12 +36,17 @@ if (!$id && isset($_SERVER['PATH_INFO'])) {
     }
 }
 
-$corpo = json_decode(file_get_contents('php://input'), true) ?? [];
+// Captura dados tanto de JSON quanto de formulário normal
+$entradaJson = json_decode(file_get_contents('php://input'), true);
+$dados = !empty($entradaJson) ? $entradaJson : $_POST;
+
+// Se a requisição veio de formulário simples com redirecionamento solicitado
+$redirecionar = isset($_GET['redirect']) || isset($_POST['redirect']);
 
 try {
     switch ($metodo) {
-        // A. Rota RESTful: GET (Listar todos ou buscar por ID)
         case 'GET':
+            header("Content-Type: application/json; charset=utf-8");
             if ($id) {
                 $produto = $service->buscarPorId($id);
                 if (!$produto) {
@@ -45,62 +54,73 @@ try {
                     echo json_encode(['mensagem' => 'Produto não encontrado!'], JSON_UNESCAPED_UNICODE);
                     exit;
                 }
-                // B. Resource: formata produto individual
                 echo json_encode(ProdutoResource::formatar($produto), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             } else {
                 $produtos = $service->listar();
-                // B. Resource: formata coleção de produtos
                 echo json_encode(ProdutoResource::formatarColecao($produtos), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             }
             break;
 
-        // A. Rota RESTful: POST (Criar produto)
         case 'POST':
-            $dados = !empty($corpo) ? $corpo : $_POST;
-            $novoProduto = $service->create($dados);
+            $novo = $service->create($dados);
+            if ($redirecionar) {
+                header("Location: testar_api.php?msg=Produto criado com sucesso!");
+                exit;
+            }
+            header("Content-Type: application/json; charset=utf-8");
             http_response_code(201);
             echo json_encode([
                 'mensagem' => 'Produto criado com sucesso!',
-                'produto' => ProdutoResource::formatar($novoProduto)
+                'produto' => ProdutoResource::formatar($novo)
             ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             break;
 
-        // A. Rota RESTful: PUT (Atualizar produto)
         case 'PUT':
             if (!$id) {
-                http_response_code(400);
-                echo json_encode(['mensagem' => 'ID do produto não informado!'], JSON_UNESCAPED_UNICODE);
+                throw new Exception("Informe o ID do produto para atualizar!");
+            }
+            $atualizado = $service->update($id, $dados);
+            if ($redirecionar) {
+                header("Location: testar_api.php?msg=Produto atualizado com sucesso!");
                 exit;
             }
-            $atualizado = $service->update($id, $corpo);
+            header("Content-Type: application/json; charset=utf-8");
             echo json_encode([
                 'mensagem' => 'Produto atualizado com sucesso!',
                 'produto' => ProdutoResource::formatar($atualizado)
             ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
             break;
 
-        // A. Rota RESTful: DELETE (Excluir produto)
         case 'DELETE':
             if (!$id) {
-                http_response_code(400);
-                echo json_encode(['mensagem' => 'ID do produto não informado!'], JSON_UNESCAPED_UNICODE);
-                exit;
+                throw new Exception("Informe o ID do produto para exclusão!");
             }
             $deletou = $service->delete($id);
+            if ($redirecionar) {
+                header("Location: testar_api.php?msg=Produto excluído!");
+                exit;
+            }
+            header("Content-Type: application/json; charset=utf-8");
             if ($deletou) {
                 echo json_encode(['mensagem' => 'Produto deletado com sucesso!'], JSON_UNESCAPED_UNICODE);
             } else {
                 http_response_code(404);
-                echo json_encode(['mensagem' => 'Produto não encontrado para deletar!'], JSON_UNESCAPED_UNICODE);
+                echo json_encode(['mensagem' => 'Produto não encontrado!'], JSON_UNESCAPED_UNICODE);
             }
             break;
 
         default:
             http_response_code(405);
-            echo json_encode(['mensagem' => 'Método não permitido!'], JSON_UNESCAPED_UNICODE);
+            header("Content-Type: application/json; charset=utf-8");
+            echo json_encode(['mensagem' => 'Método HTTP não permitido!'], JSON_UNESCAPED_UNICODE);
             break;
     }
 } catch (Exception $e) {
+    if ($redirecionar) {
+        header("Location: testar_api.php?erro=" . urlencode($e->getMessage()));
+        exit;
+    }
+    header("Content-Type: application/json; charset=utf-8");
     http_response_code(400);
     echo json_encode(['erro' => true, 'mensagem' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
 }
