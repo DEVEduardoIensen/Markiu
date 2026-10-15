@@ -1,4 +1,18 @@
 <?php
+// ==========================================
+// TAREFA DE FACULDADE - ATALHOS RÁPIDOS
+// ==========================================
+?>
+<div style="background: #1e293b; color: white; padding: 15px; border-radius: 8px; margin-bottom: 25px; font-family: Arial, sans-serif;">
+    <h2 style="margin: 0 0 10px 0; font-size: 18px; color: #38bdf8;">📋 Tarefa de Faculdade - Markiu</h2>
+    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="cliente.html" style="background: #2563eb; color: white; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-weight: bold;">💻 Abrir Cliente Web</a>
+        <a href="api.php" style="background: #10b981; color: white; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-weight: bold;">⚡ API RESTful (JSON)</a>
+        <a href="consumo.php" style="background: #f59e0b; color: white; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-weight: bold;">🌐 Consumo de API Externa</a>
+        <a href="testes.php" style="background: #8b5cf6; color: white; padding: 8px 12px; border-radius: 4px; text-decoration: none; font-weight: bold;">🧪 Executar Testes</a>
+    </div>
+</div>
+<?php
 
 $idade = 20;
 if ($idade >= 18) {
