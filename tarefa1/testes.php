@@ -12,13 +12,8 @@
 
 require_once __DIR__ . '/service.php';
 
-// Arquivo temporário para isolar os testes
-$arquivoTeste = __DIR__ . '/produtos_teste.json';
-if (file_exists($arquivoTeste)) {
-    unlink($arquivoTeste);
-}
-
-$service = new ProdutoService($arquivoTeste);
+$service = new ProdutoService();
+$service->resetar();
 $total = 0;
 $passou = 0;
 
@@ -138,11 +133,6 @@ verificar(
     "SUCESSO: O método update bloqueou o valor 0.00. Mensagem: '$msgCapturada3'",
     "FALHA: O método update permitiu alterar para um valor inválido!"
 );
-
-// Limpeza do arquivo de teste
-if (file_exists($arquivoTeste)) {
-    unlink($arquivoTeste);
-}
 
 echo "--------------------------------------------------------\n";
 echo "RESULTADO: $passou de $total testes passaram!\n";

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/service.php';
 require_once __DIR__ . '/resource.php';
 
-$service = new ProdutoService(__DIR__ . '/produtos.json');
+$service = new ProdutoService();
 $produtos = ProdutoResource::formatarColecao($service->listar());
 
 $produtoEdicao = null;

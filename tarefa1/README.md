@@ -15,4 +15,3 @@ No terminal, entre na pasta `tarefa1` e execute:
 ```bash
 php testes.php
 ```
-Ou dê um duplo clique no arquivo `rodar_testes.bat`.

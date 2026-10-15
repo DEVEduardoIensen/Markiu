@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-$service = new ProdutoService(__DIR__ . '/produtos.json');
+$service = new ProdutoService();
 
 // Suporte a RESTful direto e também via formulário HTML com _method
 $metodo = $_SERVER['REQUEST_METHOD'];

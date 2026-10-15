@@ -1,40 +1,39 @@
 <?php
 
 /**
- * TAREFA 2 - Service de Produtos para a API
+ * TAREFA 2 - Service de Produtos para a API (Armazenamento em Sessão/Memória, sem arquivos .json)
  */
 
 class ProdutoService
 {
-    private $arquivoJson;
+    private static $produtosMemoria = [
+        ['id' => 1, 'nome' => 'Caderno 10 Matérias', 'valor' => 25.50, 'quantidade' => 10],
+        ['id' => 2, 'nome' => 'Caneta Azul', 'valor' => 2.00, 'quantidade' => 50],
+        ['id' => 3, 'nome' => 'Borracha Escolar', 'valor' => 1.50, 'quantidade' => 30]
+    ];
 
-    public function __construct($arquivoJson = __DIR__ . '/produtos.json')
+    public function __construct()
     {
-        $this->arquivoJson = $arquivoJson;
+        if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+            @session_start();
+        }
 
-        if (!file_exists($this->arquivoJson)) {
-            $dadosIniciais = [
-                ['id' => 1, 'nome' => 'Caderno 10 Matérias', 'valor' => 25.50, 'quantidade' => 10],
-                ['id' => 2, 'nome' => 'Caneta Azul', 'valor' => 2.00, 'quantidade' => 50],
-                ['id' => 3, 'nome' => 'Borracha Escolar', 'valor' => 1.50, 'quantidade' => 30]
-            ];
-            file_put_contents($this->arquivoJson, json_encode($dadosIniciais, JSON_PRETTY_PRINT));
+        if (isset($_SESSION) && !isset($_SESSION['produtos'])) {
+            $_SESSION['produtos'] = self::$produtosMemoria;
         }
     }
 
     public function listar()
     {
-        if (!file_exists($this->arquivoJson)) {
-            return [];
+        if (isset($_SESSION['produtos'])) {
+            return $_SESSION['produtos'];
         }
-        $conteudo = file_get_contents($this->arquivoJson);
-        return json_decode($conteudo, true) ?: [];
+        return self::$produtosMemoria;
     }
 
     public function buscarPorId($id)
     {
-        $produtos = $this->listar();
-        foreach ($produtos as $p) {
+        foreach ($this->listar() as $p) {
             if ($p['id'] == $id) {
                 return $p;
             }
@@ -68,7 +67,7 @@ class ProdutoService
         ];
 
         $produtos[] = $novoProduto;
-        file_put_contents($this->arquivoJson, json_encode($produtos, JSON_PRETTY_PRINT));
+        $this->salvar($produtos);
         return $novoProduto;
     }
 
@@ -98,7 +97,7 @@ class ProdutoService
             throw new Exception("Produto não encontrado para atualização!");
         }
 
-        file_put_contents($this->arquivoJson, json_encode($produtos, JSON_PRETTY_PRINT));
+        $this->salvar($produtos);
         return $atualizado;
     }
 
@@ -117,9 +116,17 @@ class ProdutoService
         }
 
         if ($deletado) {
-            file_put_contents($this->arquivoJson, json_encode($novos, JSON_PRETTY_PRINT));
+            $this->salvar($novos);
         }
 
         return $deletado;
+    }
+
+    private function salvar($produtos)
+    {
+        if (isset($_SESSION)) {
+            $_SESSION['produtos'] = $produtos;
+        }
+        self::$produtosMemoria = $produtos;
     }
 }
