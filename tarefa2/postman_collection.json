@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "tarefa2-faculdade-postman",
+		"name": "Tarefa 2 - API Produtos e Consumo",
+		"description": "Collection do Postman para testar as rotas da Tarefa 2 (RESTful, Resource, Consumo de API Externa)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Listar Produtos (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/tarefa2/api.php",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["tarefa2", "api.php"]
+				}
+			}
+		},
+		{
+			"name": "2. Buscar Produto por ID (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/tarefa2/api.php?id=1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["tarefa2", "api.php"],
+					"query": [{"key": "id", "value": "1"}]
+				}
+			}
+		},
+		{
+			"name": "3. Criar Produto (POST)",
+			"request": {
+				"method": "POST",
+				"header": [{"key": "Content-Type", "value": "application/json"}],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Estojo Escolar\",\n    \"valor\": 18.50,\n    \"quantidade\": 25\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/tarefa2/api.php",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["tarefa2", "api.php"]
+				}
+			}
+		},
+		{
+			"name": "4. Atualizar Produto (PUT)",
+			"request": {
+				"method": "PUT",
+				"header": [{"key": "Content-Type", "value": "application/json"}],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nome\": \"Caderno 20 Matérias\",\n    \"valor\": 39.90,\n    \"quantidade\": 15\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8000/tarefa2/api.php?id=1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["tarefa2", "api.php"],
+					"query": [{"key": "id", "value": "1"}]
+				}
+			}
+		},
+		{
+			"name": "5. Deletar Produto (DELETE)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/tarefa2/api.php?id=3",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["tarefa2", "api.php"],
+					"query": [{"key": "id", "value": "3"}]
+				}
+			}
+		},
+		{
+			"name": "6. Consumo API Externa Cotações (GET)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/tarefa2/consumo.php?json=1",
+					"protocol": "http",
+					"host": ["localhost"],
+					"port": "8000",
+					"path": ["tarefa2", "consumo.php"],
+					"query": [{"key": "json", "value": "1"}]
+				}
+			}
+		}
+	]
+}

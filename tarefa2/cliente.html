@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Tarefa 2 - Cliente Web da API & Consumo</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f8fafc; margin: 30px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #0f172a; font-size: 22px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
+        th { background: #f1f5f9; }
+        .form-box { background: #f8fafc; padding: 15px; border-radius: 6px; margin-top: 20px; border: 1px solid #e2e8f0; }
+        input { padding: 8px; margin-right: 8px; }
+        button { padding: 8px 12px; border: none; background: #2563eb; color: white; border-radius: 4px; cursor: pointer; }
+        .cotacoes { margin-top: 20px; background: #ecfdf5; border: 1px solid #a7f3d0; padding: 15px; border-radius: 6px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Tarefa 2: Cliente Web Consumindo a API PHP</h1>
+        <p>API Endpoint: <code>api.php</code> | Consumo Externo: <code>consumo.php</code></p>
+
+        <h3>Produtos Cadastrados na API (Resource formatado):</h3>
+        <table id="tabela">
+            <thead>
+                <tr><th>ID</th><th>Nome</th><th>Valor Formatado</th><th>Quantidade</th><th>Ação</th></tr>
+            </thead>
+            <tbody id="corpoTabela">
+                <tr><td colspan="5">Carregando...</td></tr>
+            </tbody>
+        </table>
+
+        <div class="form-box">
+            <h3>Cadastrar Novo Produto (POST)</h3>
+            <input type="text" id="nome" placeholder="Nome do produto" required>
+            <input type="number" step="0.01" id="valor" placeholder="Valor (R$)" required>
+            <input type="number" id="quantidade" placeholder="Quantidade" required>
+            <button onclick="salvarProduto()">Cadastrar</button>
+        </div>
+
+        <div class="cotacoes">
+            <h3>Consumo de API Externa (AwesomeAPI):</h3>
+            <div id="dadosCotacoes">Carregando cotações...</div>
+        </div>
+    </div>
+
+    <script>
+        async function carregarProdutos() {
+            const res = await fetch('api.php');
+            const produtos = await res.json();
+            const tbody = document.getElementById('corpoTabela');
+            tbody.innerHTML = '';
+            if (produtos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5">Nenhum produto cadastrado.</td></tr>';
+                return;
+            }
+            produtos.forEach(p => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.nome}</td>
+                        <td><strong>${p.valor_formatado}</strong></td>
+                        <td>${p.quantidade}</td>
+                        <td><button style="background:#ef4444;" onclick="deletar(${p.id})">Excluir</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        async function salvarProduto() {
+            const nome = document.getElementById('nome').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+
+            const res = await fetch('api.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ nome, valor, quantidade })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                alert('Produto cadastrado com sucesso!');
+                carregarProdutos();
+            } else {
+                alert('Erro: ' + data.mensagem);
+            }
+        }
+
+        async function deletar(id) {
+            if (!confirm('Deseja excluir?')) return;
+            await fetch('api.php?id=' + id, { method: 'DELETE' });
+            carregarProdutos();
+        }
+
+        async function carregarCotacoes() {
+            const res = await fetch('consumo.php?json=1');
+            const json = await res.json();
+            const d = json.dados;
+            document.getElementById('dadosCotacoes').innerHTML = `
+                <p><strong>Dólar:</strong> R$ ${parseFloat(d.USDBRL.bid).toFixed(2)} | 
+                   <strong>Euro:</strong> R$ ${parseFloat(d.EURBRL.bid).toFixed(2)} | 
+                   <strong>Bitcoin:</strong> R$ ${parseFloat(d.BTCBRL.bid).toLocaleString('pt-BR')}</p>
+            `;
+        }
+
+        carregarProdutos();
+        carregarCotacoes();
+    </script>
+</body>
+</html>

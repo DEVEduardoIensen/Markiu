@@ -1,0 +1,12 @@
+{
+  "name": "desafio-cliente-node",
+  "version": "1.0.0",
+  "description": "Desafio: Projeto local em Express/Node consumindo a API PHP",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
