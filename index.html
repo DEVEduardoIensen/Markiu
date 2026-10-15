@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarefas de Faculdade - Markiu</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; margin: 0; padding: 30px 20px; color: #1e293b; }
+        .container { max-width: 720px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
+        h1 { color: #0f172a; margin-top: 0; font-size: 24px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; }
+        .bloco { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px; margin-bottom: 20px; }
+        h2 { font-size: 16px; margin-top: 0; color: #334155; text-transform: uppercase; letter-spacing: 0.5px; }
+        p { font-size: 14px; color: #64748b; margin: 6px 0 14px 0; }
+        .links { display: flex; gap: 10px; flex-wrap: wrap; }
+        a.btn { display: inline-block; padding: 10px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 14px; color: white; transition: opacity 0.2s; }
+        a.btn:hover { opacity: 0.9; }
+        .btn-roxo { background: #8b5cf6; }
+        .btn-azul { background: #2563eb; }
+        .btn-verde { background: #10b981; }
+        .btn-laranja { background: #f59e0b; }
+        .btn-cinza { background: #64748b; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📋 Tarefas de Faculdade - Markiu</h1>
+
+        <!-- TAREFA 1 -->
+        <div class="bloco">
+            <h2>📁 Tarefa 1: Service e Testes</h2>
+            <p>Implementação do método <code>update</code> no Service e testes unitários de regra de negócio.</p>
+            <div class="links">
+                <a href="tarefa1/testes.php" class="btn btn-roxo">🧪 Executar Testes Unitários</a>
+            </div>
+        </div>
+
+        <!-- TAREFA 2 -->
+        <div class="bloco">
+            <h2>📁 Tarefa 2: API RESTful, Consumo & Desafio</h2>
+            <p>API RESTful de produtos com Resource, Consumo da AwesomeAPI e projeto cliente em outro framework.</p>
+            <div class="links">
+                <a href="tarefa2/cliente.html" class="btn btn-azul">💻 Abrir Cliente Web</a>
+                <a href="tarefa2/api.php" class="btn btn-verde">⚡ API RESTful (JSON)</a>
+                <a href="tarefa2/consumo.php" class="btn btn-laranja">🌐 Consumo de API Externa</a>
+            </div>
+        </div>
+
+        <!-- EXERCICIOS ANTERIORES -->
+        <div class="bloco" style="margin-bottom: 0;">
+            <h2>📄 Exercícios Anteriores</h2>
+            <p>Os 13 exercícios iniciais de PHP que estavam no repositório.</p>
+            <div class="links">
+                <a href="index.php" class="btn btn-cinza">Ver Exercícios do index.php</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
