@@ -1,0 +1,11 @@
+vendor/
+composer.phar
+.phpunit.cache
+.phpunit.result.cache
+*.db
+*.sqlite
+.env
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
