@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel da API - Tarefa de Faculdade</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; color: #1e293b; }
+        .container { max-width: 900px; margin: auto; }
+        header { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
+        h1 { margin: 0 0 10px 0; color: #0f172a; font-size: 24px; }
+        .badge { display: inline-block; background: #3b82f6; color: white; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; }
+        
+        .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+        
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h2 { font-size: 18px; margin-top: 0; color: #334155; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; font-size: 13px; color: #64748b; }
+        
+        input, button { padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 14px; width: 100%; margin-bottom: 10px; }
+        button { background: #2563eb; color: white; border: none; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+        button:hover { background: #1d4ed8; }
+        button.btn-del { background: #ef4444; width: auto; padding: 6px 10px; font-size: 12px; }
+        button.btn-del:hover { background: #dc2626; }
+        button.btn-edit { background: #f59e0b; width: auto; padding: 6px 10px; font-size: 12px; margin-right: 5px; }
+        button.btn-edit:hover { background: #d97706; }
+
+        .moeda-box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 12px; margin-bottom: 10px; }
+        .moeda-titulo { font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: bold; }
+        .moeda-valor { font-size: 18px; font-weight: bold; color: #16a34a; margin-top: 4px; }
+
+        .msg { padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 14px; display: none; }
+        .msg-sucesso { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .msg-erro { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Painel de Produtos & Consumo de API</h1>
+            <span class="badge">PHP RESTful API + Service + Resource</span>
+            <p style="color: #64748b; font-size: 14px; margin-top: 10px;">
+                Consumindo a API PHP local (<code>/api.php</code>) e a API externa gratuita (AwesomeAPI).
+            </p>
+        </header>
+
+        <div id="mensagemBox" class="msg"></div>
+
+        <div class="grid">
+            <!-- Coluna Principal: Produtos da API -->
+            <div>
+                <div class="card">
+                    <h2>Produtos Cadastrados na API (com Resource)</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Valor (Formatado)</th>
+                                <th>Qtd</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaProdutos">
+                            <tr><td colspan="5">Carregando produtos...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Coluna Lateral: Formulário + Cotações -->
+            <div>
+                <!-- Formulário de Cadastro / Edição -->
+                <div class="card">
+                    <h2 id="formTitulo">Cadastrar Produto</h2>
+                    <form id="formProduto">
+                        <input type="hidden" id="produtoId">
+                        <label style="font-size: 12px; font-weight: bold;">Nome do Produto:</label>
+                        <input type="text" id="nome" placeholder="Ex: Mochila Escolar" required>
+                        
+                        <label style="font-size: 12px; font-weight: bold;">Valor em R$ (Regra: > 0):</label>
+                        <input type="number" step="0.01" id="valor" placeholder="Ex: 59.90" required>
+                        
+                        <label style="font-size: 12px; font-weight: bold;">Quantidade em Estoque:</label>
+                        <input type="number" id="quantidade" placeholder="Ex: 10" required>
+                        
+                        <button type="submit" id="btnSalvar">Salvar Produto</button>
+                        <button type="button" id="btnCancelar" style="background: #94a3b8; display: none;" onclick="cancelarEdicao()">Cancelar</button>
+                    </form>
+                </div>
+
+                <!-- Consumo da API Externa -->
+                <div class="card">
+                    <h2>Consumo de API Externa</h2>
+                    <p style="font-size: 12px; color: #64748b;">Cotações em tempo real da AwesomeAPI:</p>
+                    <div id="boxCotacoes">Carregando moedas...</div>
+                    <button style="margin-top: 10px; background: #0f172a;" onclick="carregarCotacoes()">Atualizar Cotações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'api.php';
+        const CONSUMO_URL = 'consumo.php?json=1';
+
+        function mostrarMensagem(texto, sucesso = true) {
+            const box = document.getElementById('mensagemBox');
+            box.textContent = texto;
+            box.className = 'msg ' + (sucesso ? 'msg-sucesso' : 'msg-erro');
+            box.style.display = 'block';
+            setTimeout(() => { box.style.display = 'none'; }, 4000);
+        }
+
+        // 1. Carrega os produtos da API PHP (GET)
+        async function carregarProdutos() {
+            try {
+                const res = await fetch(API_URL);
+                const produtos = await res.json();
+                const tbody = document.getElementById('tabelaProdutos');
+                tbody.innerHTML = '';
+
+                if (!produtos || produtos.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5">Nenhum produto cadastrado.</td></tr>';
+                    return;
+                }
+
+                produtos.forEach(p => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${p.id}</td>
+                        <td>${p.nome}</td>
+                        <td><strong>${p.valor_formatado}</strong></td>
+                        <td>${p.quantidade}</td>
+                        <td>
+                            <button class="btn-edit" onclick="prepararEdicao(${p.id}, '${p.nome}', ${p.valor}, ${p.quantidade})">Editar</button>
+                            <button class="btn-del" onclick="deletarProduto(${p.id})">Excluir</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                document.getElementById('tabelaProdutos').innerHTML = '<tr><td colspan="5" style="color:red">Erro ao carregar produtos da API.</td></tr>';
+            }
+        }
+
+        // 2. Salvar ou Atualizar Produto (POST ou PUT usando o service)
+        document.getElementById('formProduto').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('produtoId').value;
+            const nome = document.getElementById('nome').value;
+            const valor = parseFloat(document.getElementById('valor').value);
+            const quantidade = parseInt(document.getElementById('quantidade').value);
+
+            const dados = { nome, valor, quantidade };
+
+            try {
+                let res;
+                if (id) {
+                    // PUT /api.php?id=X (Usa o método update do ProdutoService)
+                    res = await fetch(`${API_URL}?id=${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dados)
+                    });
+                } else {
+                    // POST /api.php (Criação de produto com regra de negócio)
+                    res = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(dados)
+                    });
+                }
+
+                const respostaJson = await res.json();
+                if (res.ok) {
+                    mostrarMensagem(respostaJson.mensagem || 'Operação realizada com sucesso!');
+                    cancelarEdicao();
+                    carregarProdutos();
+                } else {
+                    mostrarMensagem(respostaJson.mensagem || 'Erro na validação!', false);
+                }
+            } catch (err) {
+                mostrarMensagem('Erro na requisição: ' + err.message, false);
+            }
+        });
+
+        // 3. Deletar Produto (DELETE)
+        async function deletarProduto(id) {
+            if (!confirm('Tem certeza que deseja excluir o produto ID ' + id + '?')) return;
+            try {
+                const res = await fetch(`${API_URL}?id=${id}`, { method: 'DELETE' });
+                const json = await res.json();
+                if (res.ok) {
+                    mostrarMensagem('Produto excluído com sucesso!');
+                    carregarProdutos();
+                } else {
+                    mostrarMensagem(json.mensagem || 'Erro ao excluir', false);
+                }
+            } catch (err) {
+                mostrarMensagem('Erro: ' + err.message, false);
+            }
+        }
+
+        // Preparar para edição (PUT)
+        function prepararEdicao(id, nome, valor, quantidade) {
+            document.getElementById('formTitulo').textContent = 'Editar Produto #' + id;
+            document.getElementById('produtoId').value = id;
+            document.getElementById('nome').value = nome;
+            document.getElementById('valor').value = valor;
+            document.getElementById('quantidade').value = quantidade;
+            document.getElementById('btnSalvar').textContent = 'Salvar Alterações';
+            document.getElementById('btnCancelar').style.display = 'block';
+        }
+
+        function cancelarEdicao() {
+            document.getElementById('formTitulo').textContent = 'Cadastrar Produto';
+            document.getElementById('produtoId').value = '';
+            document.getElementById('formProduto').reset();
+            document.getElementById('btnSalvar').textContent = 'Salvar Produto';
+            document.getElementById('btnCancelar').style.display = 'none';
+        }
+
+        // 4. Consumo da API Externa de Cotações
+        async function carregarCotacoes() {
+            const box = document.getElementById('boxCotacoes');
+            box.innerHTML = 'Carregando cotações...';
+            try {
+                const res = await fetch(CONSUMO_URL);
+                const json = await res.json();
+                const moedas = json.dados;
+                
+                box.innerHTML = `
+                    <div class="moeda-box">
+                        <div class="moeda-titulo">Dólar Americano</div>
+                        <div class="moeda-valor">R$ ${parseFloat(moedas.USDBRL.bid).toFixed(2).replace('.', ',')}</div>
+                    </div>
+                    <div class="moeda-box">
+                        <div class="moeda-titulo">Euro</div>
+                        <div class="moeda-valor">R$ ${parseFloat(moedas.EURBRL.bid).toFixed(2).replace('.', ',')}</div>
+                    </div>
+                    <div class="moeda-box">
+                        <div class="moeda-titulo">Bitcoin</div>
+                        <div class="moeda-valor">R$ ${parseFloat(moedas.BTCBRL.bid).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>
+                    </div>
+                `;
+            } catch (err) {
+                box.innerHTML = '<span style="color:red">Erro ao carregar cotações externas.</span>';
+            }
+        }
+
+        // Inicialização
+        carregarProdutos();
+        carregarCotacoes();
+    </script>
+</body>
+</html>
