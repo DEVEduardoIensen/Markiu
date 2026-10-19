@@ -1,6 +1,6 @@
 # Markiu - Tarefas de Faculdade
 
-Este repositório contém as duas tarefas acadêmicas separadas em pastas individuais:
+Este repositório contém tarefas acadêmicas separadas em pastas individuais:
 
 ---
 
@@ -36,3 +36,11 @@ Localizada na pasta `tarefa2/`:
   ```bash
   php -S localhost:8000
   ```
+
+---
+
+## Tarefa 3: API de Produtos com Laravel
+
+Localizada na pasta `tarefa3/`.
+
+Projeto em desenvolvimento, importado da versão original de [4B-API-Produtos](https://github.com/Prof-Dionatan-CR/4B-API-Produtos).
