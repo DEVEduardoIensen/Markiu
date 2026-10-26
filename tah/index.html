@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Astah UML - Gerador de Diagramas de Máquina de Estados</title>
+  <link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+  <!-- Top Navigation & Actions Bar -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">A</div>
+      <div>
+        <div class="brand-title">Astah UML Print Studio</div>
+        <span class="brand-subtitle">Diagramas de Máquina de Estados (Exercícios 1 a 11)</span>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="btnDownloadPng" class="btn btn-primary" title="Baixar imagem em formato PNG de alta qualidade para enviar ou colar no trabalho">
+        📸 Baixar PNG (Alta Resolução)
+      </button>
+
+      <button id="btnCopyImage" class="btn btn-success" title="Copiar imagem direto para a área de transferência para colar com Ctrl+V no Word / Docs">
+        📋 Copiar Imagem
+      </button>
+
+      <button id="btnPrintMode" class="btn btn-accent" title="Oculta todos os menus e deixa apenas o diagrama na tela para tirar print perfeito com Windows+Shift+S">
+        🖥️ Modo Print (Tela Limpa)
+      </button>
+
+      <button id="btnToggleLabels" class="btn" title="Ocultar ou mostrar os textos entre os retângulos">
+        🔤 Ocultar Textos das Linhas
+      </button>
+
+      <button id="btnToggleDrawer" class="btn" title="Ver enunciado da questão e resposta explicativa">
+        📄 Enunciado & Resposta
+      </button>
+    </div>
+  </header>
+
+  <!-- Question Tabs Navigation Bar -->
+  <nav class="question-nav" id="questionNav">
+    <!-- Generated dynamically via app.js -->
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="workspace">
+    <!-- Viewport Container with subtle background grid -->
+    <div class="canvas-viewport" id="canvasViewport">
+      <!-- The Authentic Astah Canvas Sheet -->
+      <div class="astah-sheet" id="astahSheet">
+        <!-- SVG Diagram rendered here -->
+      </div>
+    </div>
+
+    <!-- Floating Zoom Controls -->
+    <div class="canvas-controls">
+      <button id="btnZoomOut" class="ctrl-btn" title="Diminuir Zoom">−</button>
+      <span class="zoom-level" id="zoomText">100%</span>
+      <button id="btnZoomIn" class="ctrl-btn" title="Aumentar Zoom">+</button>
+      <button id="btnZoomReset" class="ctrl-btn" title="Restaurar Zoom (100%)">↺</button>
+    </div>
+
+    <!-- Collapsible Side Drawer with Exercise Prompt and Theoretical Answers -->
+    <aside class="info-drawer collapsed" id="infoDrawer">
+      <div class="drawer-header">
+        <h3 id="drawerTitle">Exercício UML</h3>
+        <button id="btnCloseDrawer" class="ctrl-btn" style="border:none; color:#aaa; cursor:pointer;">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <div class="drawer-section">
+          <h4>📋 Enunciado da Questão</h4>
+          <div class="enunciado-card" id="enunciadoText">
+            Carregando enunciado...
+          </div>
+        </div>
+
+        <div class="drawer-section" id="respostaSection" style="display: none;">
+          <h4>💡 Resposta Escrita / Análise Teórica</h4>
+          <div class="resposta-card" id="respostaCard">
+            <!-- Written answer for questions 4 and 6 -->
+          </div>
+        </div>
+
+        <div class="drawer-section">
+          <h4>ℹ️ Dicas do Astah UML</h4>
+          <div style="font-size: 11.5px; color: #9ca3af; line-height: 1.5;">
+            • Cores e fontes padronizadas no amarelo oficial do Astah (<code>#ffffcc</code>) e bordas sólidas.<br>
+            • Clique duas vezes na aba superior esquerda (<code>stm ...</code>) para renomear o diagrama caso seu professor exija um título específico.<br>
+            • No <strong>Modo Print</strong>, você pode usar a tecla <kbd>ESC</kbd> a qualquer momento para voltar aos menus.
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Floating Exit Button for Print Mode -->
+  <button id="btnExitPrint" class="exit-print-btn">
+    ✕ Sair do Modo Print (ou pressione ESC)
+  </button>
+
+  <!-- Notification Toast Container -->
+  <div id="toast" class="toast">Notificação</div>
+
+  <script src="app.js?v=3"></script>
+</body>
+</html>

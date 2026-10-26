@@ -1,0 +1,483 @@
+/* Astah UML Diagram Generator - Exact Astah Desktop Replica Styling */
+:root {
+  --bg-app: #1e2026;
+  --panel-bg: #272a33;
+  --panel-border: #383c48;
+  --accent: #2563eb;
+  --accent-green: #10b981;
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  
+  /* Astah Colors - Exact Soft Pastel Yellow */
+  --astah-canvas-bg: #ffffff;
+  --astah-node-bg: #ffffcc;
+  --astah-node-border: #000000;
+  --astah-font: Arial, "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Tahoma, Arial, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* Header & Navigation */
+header.app-header {
+  background-color: var(--panel-bg);
+  border-bottom: 1px solid var(--panel-border);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+  z-index: 50;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-icon {
+  width: 26px;
+  height: 26px;
+  background: #ffaa00;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+  color: #000;
+  border: 1px solid #d48800;
+}
+
+.brand-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.brand-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* Toolbar Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #333844;
+  color: #e5e7eb;
+  border: 1px solid #444a5a;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: Tahoma, Arial, sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background-color: #404757;
+  color: #fff;
+}
+
+.btn-primary {
+  background: #2563eb;
+  border-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-success {
+  background: #059669;
+  border-color: #10b981;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-success:hover {
+  background: #047857;
+}
+
+.btn-accent {
+  background: #d97706;
+  border-color: #f59e0b;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-accent:hover {
+  background: #b45309;
+}
+
+/* Question Selector Bar */
+nav.question-nav {
+  background-color: #1f2229;
+  border-bottom: 1px solid var(--panel-border);
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.q-tab {
+  background: #2a2e38;
+  border: 1px solid #3d4251;
+  color: #9ca3af;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-family: Tahoma, Arial, sans-serif;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.q-tab:hover {
+  background: #343946;
+  color: #fff;
+}
+
+.q-tab.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #60a5fa;
+  font-weight: bold;
+}
+
+.q-tab.done {
+  opacity: 0.55;
+}
+
+.q-tab.done:hover {
+  opacity: 0.9;
+}
+
+/* Workspace Layout */
+.workspace {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Main Canvas Viewport */
+.canvas-viewport {
+  flex: 1;
+  background-color: #555b68;
+  overflow: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 24px;
+  position: relative;
+}
+
+/* The Authentic Astah Canvas Sheet */
+.astah-sheet {
+  background-color: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+  position: relative;
+  transform-origin: top left;
+  margin: 0 auto 50px auto;
+  flex-shrink: 0;
+}
+
+/* SVG Rendering - Exact Astah Typography & Pure Solid Black 1px Lines */
+svg.diagram-svg {
+  display: block;
+  font-family: Arial, "Segoe UI", sans-serif;
+  font-size: 11px;
+  background-color: #ffffff;
+}
+
+/* Force 100% Solid Pure Black 1px Strokes on all diagram lines, boxes, and shapes */
+svg.diagram-svg line,
+svg.diagram-svg polyline,
+svg.diagram-svg path {
+  stroke: #000000 !important;
+  stroke-width: 1px !important;
+  shape-rendering: crispEdges !important;
+}
+
+svg.diagram-svg rect,
+svg.diagram-svg polygon {
+  stroke: #000000 !important;
+  stroke-width: 1px !important;
+  shape-rendering: crispEdges !important;
+}
+
+svg.diagram-svg circle {
+  stroke: #000000 !important;
+  stroke-width: 1px !important;
+  shape-rendering: geometricPrecision;
+}
+
+/* Astah Open Chevron Arrowhead (1px pure black, crisp edges) */
+#astah-arrow path,
+#astah-arrow polyline {
+  stroke: #000000 !important;
+  stroke-width: 1px !important;
+  fill: none !important;
+  shape-rendering: crispEdges !important;
+}
+
+/* Astah Plain Text - Regular 11px Arial (never bold, never gray) */
+svg.diagram-svg text,
+.astah-text {
+  font-family: Arial, "Segoe UI", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  fill: #000000 !important;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Labels between states (Transitions) */
+.transition-label {
+  font-family: Arial, "Segoe UI", sans-serif !important;
+  font-size: 11px !important;
+  font-weight: normal !important;
+  fill: #000000 !important;
+}
+
+/* Authentic Astah Soft Pastel Yellow fill (#ffffcc) */
+.astah-state rect,
+.astah-composite rect,
+.astah-decision polygon {
+  fill: #ffffcc !important;
+}
+
+/* Toggleable: When hide-labels is active, hide text between rectangles */
+body.hide-labels .transition-label {
+  display: none !important;
+}
+
+/* Floating Diagram Control overlay */
+.canvas-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(30, 32, 38, 0.95);
+  border: 1px solid #3c4150;
+  border-radius: 6px;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 40;
+}
+
+.canvas-controls .ctrl-btn {
+  background: transparent;
+  border: none;
+  color: #d1d5db;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.canvas-controls .ctrl-btn:hover {
+  background-color: #374151;
+  color: #fff;
+}
+
+.canvas-controls .zoom-level {
+  font-size: 11px;
+  color: #9ca3af;
+  min-width: 40px;
+  text-align: center;
+}
+
+/* Info & Solution Panel (Collapsible Drawer) */
+.info-drawer {
+  width: 420px;
+  background-color: var(--panel-bg);
+  border-left: 1px solid var(--panel-border);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, margin-right 0.2s ease;
+  z-index: 30;
+}
+
+.info-drawer.collapsed {
+  margin-right: -420px;
+}
+
+.drawer-header {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--panel-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.drawer-header h3 {
+  font-size: 13px;
+  font-weight: bold;
+  color: #f3f4f6;
+}
+
+.drawer-body {
+  padding: 14px;
+  overflow-y: auto;
+  flex: 1;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d1d5db;
+}
+
+.drawer-section {
+  margin-bottom: 16px;
+}
+
+.drawer-section h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.enunciado-card {
+  background-color: #1a1c22;
+  border: 1px solid #2e323e;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 11.5px;
+  color: #cbd5e1;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.resposta-card {
+  background-color: #172033;
+  border: 1px solid #1e3a5f;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 11.5px;
+  color: #bfdbfe;
+  line-height: 1.5;
+}
+
+.resposta-card strong {
+  color: #60a5fa;
+}
+
+.resposta-card ul {
+  padding-left: 16px;
+  margin-top: 4px;
+}
+
+/* FULLSCREEN PRINT MODE */
+body.print-mode {
+  background-color: #ffffff !important;
+}
+
+body.print-mode header.app-header,
+body.print-mode nav.question-nav,
+body.print-mode .canvas-controls,
+body.print-mode .info-drawer {
+  display: none !important;
+}
+
+body.print-mode .workspace {
+  background-color: #ffffff !important;
+  overflow: visible !important;
+}
+
+body.print-mode .canvas-viewport {
+  background: #ffffff !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+body.print-mode .astah-sheet {
+  box-shadow: none !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+/* Notification Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #10b981;
+  color: #ffffff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.25s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.toast.error {
+  background-color: #ef4444;
+}
+
+/* Floating Exit Button for Print Mode */
+.exit-print-btn {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 11.5px;
+  cursor: pointer;
+  z-index: 10000;
+  display: none;
+}
+body.print-mode .exit-print-btn {
+  display: block;
+}
